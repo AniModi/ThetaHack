@@ -14,7 +14,7 @@ export function GameContextProvider({ children }: { children: ReactNode }) {
   const [initialPosition, setPosition] = useState<Position>({ x: 0, y: 0 });
 
   const generateMap = useCallback(function generateMap() {
-    const map = new DungeonGenerator(40, 20, 3, 5, 7).generate();
+    const map = new DungeonGenerator(50, 50, 5, 7, 15).generate();
     const entry = map.entry;
     setMap(map);
     const offsetX =

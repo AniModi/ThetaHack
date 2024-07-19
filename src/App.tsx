@@ -1,27 +1,18 @@
-import Map from "./components/Map/Map";
-import { useEffect } from "react";
-import Stage from "./components/Stage/Stage";
-import { useGame } from "./hooks/useGame";
-import Player from "./components/Player/Player";
-import { handleUserInput } from "./utils/userInputs";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Game from "./pages/Game/Game";
+import PlayerCreation from "./pages/PlayerCreation/PlayerCreation";
+import PlayerDetailPage from "./pages/PlayerDetailPage/PlayerDetailPage";
 
 export default function App() {
-  const { map, generateMap } = useGame();
-  useEffect(() => {
-    generateMap();
-    return handleUserInput();
-  }, [generateMap]);
-
-  if (!map) {
-    return;
-  }
-
   return (
-    <div className="relative h-full w-full">
-      <Stage width={window.innerWidth} height={window.innerHeight}>
-        <Map></Map>
-        <Player></Player>
-      </Stage>
+    <div className="h-full w-full bg-blue">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/create-player" element={<PlayerCreation/>} />
+        <Route path="/create-player/:player" element={<PlayerDetailPage/>} />
+        <Route path="/play" element={<Game />} />
+      </Routes>
     </div>
   );
 }

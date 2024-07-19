@@ -21,8 +21,8 @@ export class DungeonGenerator {
     minRoomSize: number,
     maxRoomSize: number,
     maxRooms: number,
-    enemyChance = 0.3,
-    npcChance = 0.3,
+    enemyChance = 0.7,
+    npcChance = 0.05,
     chestChance = 0.3
   ) {
     this.width = width;
@@ -148,13 +148,13 @@ export class DungeonGenerator {
     this.rooms.forEach((room, index) => {
       if (index === 0 || index === this.rooms.length - 1) return;
 
-      if (Math.random() < this.enemyChance) {
+      while (Math.random() < this.enemyChance) {
         const [x, y] = this.getRandomPositionInRoom(room);
         this.entities.push({ type: "enemy", x, y });
         this.tiles[y][x] = "enemy";
       }
 
-      if (Math.random() < this.npcChance) {
+      while (Math.random() < this.npcChance) {
         const [x, y] = this.getRandomPositionInRoom(room);
         this.entities.push({ type: "npc", x, y });
         this.tiles[y][x] = "npc";
