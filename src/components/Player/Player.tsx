@@ -1,50 +1,25 @@
 import { Container, Sprite } from "@pixi/react";
 import { DungeonAssets } from "../../assets";
 import { useGame } from "../../hooks/useGame";
-import { TILE_SIZE, MOVEMENT_SPEED } from "../../data/game_constants";
-import { useEffect, useState } from "react";
-import { Position } from "../../types/Position";
+import { TILE_SIZE } from "../../data/game_constants";
+import usePlayer from "../../hooks/usePlayer";
 
 const { Wizard } = DungeonAssets;
 
 export default function Player() {
-  const {  map, initialPosition, setPosition } = useGame();
-  const [playerPosition, setPlayerPosition] = useState<Position>({
-    x: map!.entry.x,
-    y: map!.entry.y,
-  });
+  const { initialPosition } = useGame();
 
-
-  useEffect(() => {
-    window.addEventListener("keydown", (e) => {
-      if(e.key === "ArrowUp") {
-        setPosition((prev) => ({...prev, y: prev.y + MOVEMENT_SPEED}));
-        setPlayerPosition((prev) => ({...prev, y: prev.y - MOVEMENT_SPEED / TILE_SIZE}));
-      }
-      if(e.key === "ArrowDown") {
-        setPosition((prev) => ({...prev, y: prev.y - MOVEMENT_SPEED}));
-        setPlayerPosition((prev) => ({...prev, y: prev.y + MOVEMENT_SPEED / TILE_SIZE}));
-      }
-      if(e.key === "ArrowLeft") {
-        setPosition((prev) => ({...prev, x: prev.x + MOVEMENT_SPEED}));
-        setPlayerPosition((prev) => ({...prev, x: prev.x - MOVEMENT_SPEED / TILE_SIZE}));
-      }
-      if(e.key === "ArrowRight") {
-        setPosition((prev) => ({...prev, x: prev.x - MOVEMENT_SPEED}));
-        setPlayerPosition((prev) => ({...prev, x: prev.x + MOVEMENT_SPEED / TILE_SIZE}));
-      }
-    })
-  }, [map, setPosition]);
-  
+  const { playerPosition } = usePlayer();
 
   return (
-    <Container position={initialPosition}>
+    <Container position={initialPosition} anchor={0.5}>
       <Sprite
         texture={Wizard}
         x={playerPosition.x * TILE_SIZE}
         y={playerPosition.y * TILE_SIZE}
         height={TILE_SIZE}
         width={TILE_SIZE}
+        anchor={0.5}
       />
     </Container>
   );

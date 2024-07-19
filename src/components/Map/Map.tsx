@@ -12,9 +12,9 @@ export default function Map() {
   const { tiles: dungeonMap } = map!;
 
   return (
-    <Container position={initialPosition}>
+    <Container position={initialPosition} anchor={0.5}>
       {dungeonMap
-        .flatMap((row, y) => {
+        .map((row, y) => {
           return row.map((tile, x) => {
             if (tile === "wall" && !isIsolatedWall(x, y, dungeonMap)) {
               return null;
@@ -33,6 +33,7 @@ export default function Map() {
                     y={y * TILE_SIZE}
                     width={TILE_SIZE}
                     height={TILE_SIZE}
+                    anchor={0.5}
                   />
                 )}
                 <Sprite
@@ -41,8 +42,10 @@ export default function Map() {
                   y={y * TILE_SIZE}
                   width={TILE_SIZE}
                   height={TILE_SIZE}
-                  pointerdown={() => {
+                  anchor={0.5}
+                  onpointerdown={() => {
                     console.log(x, y);
+                    
                   }}
                   interactive={true}
                 />
