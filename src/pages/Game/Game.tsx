@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Player from "../../components/Player/Player";
 import Stage from "../../components/Stage/Stage";
 import { useGame } from "../../hooks/useGame";
@@ -13,9 +13,20 @@ import {
   village_background,
 } from "../../data/village_map";
 import updatePlayerParams from "../../utils/updatePlayerParams";
+import { useApp } from "@pixi/react";
+import ConversationBox from "../../components/ConversationBox/ConversationBox";
+import { playerParameters } from "../../data/playerParameters";
 
 export default function Game() {
   const { map, setMap, playerPosition } = useGame();
+  const [isTalking, setIsTalking] = useState(false);
+  const app = useApp();
+
+  function handleConversationEnd() {
+    setIsTalking(false);
+    app.ticker.start();
+  }
+
 
   useEffect(() => {
     setMap(
@@ -28,8 +39,24 @@ export default function Game() {
       { x: 25, y: 25 },
       { x: 0, y: 0 }
     );
-    return handleUserInput();
-  }, [setMap]);
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "k") {
+        if (playerParameters.isNearCharacter !== "") {
+          app.ticker.stop();
+          setIsTalking(true);
+        }
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    const unsubscribe = handleUserInput();
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      unsubscribe();
+    };
+  }, [setMap, app]);
 
   if (!map) {
     return;
@@ -43,9 +70,15 @@ export default function Game() {
         <Village></Village>
         <Player></Player>
       </Stage>
-      <div className="absolute bottom-0 w-full z-10 p-3 flex justify-between">
+      <div className="absolute bottom-0 w-full z-10 p-3 flex gap-10">
         <PlayerCard></PlayerCard>
-        <PlayerAction></PlayerAction>
+        <div className="flex items-end justify-end w-fit">
+          {isTalking ? (
+            <ConversationBox handleConversationEnd={handleConversationEnd}></ConversationBox>
+          ) : (
+            <PlayerAction></PlayerAction>
+          )}
+        </div>
       </div>
     </div>
   );

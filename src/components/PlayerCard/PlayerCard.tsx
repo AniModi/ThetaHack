@@ -18,7 +18,7 @@ const playerStats = [
 const playerName = "Gandalf";
 export default function PlayerCard() {
   return (
-    <div className="w-96">
+    <div className="min-w-96">
       <Cover pattern={pattern}>
         <div className="bg-peach w-full h-full p-3 flex">
           <div className="w-16">
