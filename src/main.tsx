@@ -3,11 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import "@pixi/events";
+import { ThirdwebProvider } from "@thirdweb-dev/react";
 import { GameContextProvider } from "./contexts/GameContext.tsx";
-import { BrowserRouter, MemoryRouter } from "react-router-dom";
-
+import { BrowserRouter } from "react-router-dom";
 import { AppProvider } from "@pixi/react";
 import { Application } from "@pixi/app";
+import { THETA_TESTNET, CLIENT_ID } from "./utils/constants.ts";
 
 const app = new Application();
 
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <AppProvider value={app}>
       <BrowserRouter>
         <GameContextProvider>
-          <App />
+          <ThirdwebProvider activeChain={THETA_TESTNET} clientId={CLIENT_ID}>
+            <App />
+          </ThirdwebProvider>
         </GameContextProvider>
       </BrowserRouter>
     </AppProvider>
