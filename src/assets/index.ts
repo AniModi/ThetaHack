@@ -10,21 +10,48 @@ import Wizard from "./characters/wizard.png";
 import Knight from "./characters/knight.png";
 import Elf from "./characters/elf.png";
 
+import Grass from "./village/grass.png";
+import House from "./village/house.png";
+import Flower from "./village/flower.png";
+import Tree from "./village/tree.png";
+import Tower from "./village/tower.png";
+import Ruin from "./village/ruin.png";
+
+const VillageAssets = {
+  Grass: Texture.from(Grass),
+  Water: Water,
+
+  Flower: Texture.from(Flower),
+  Tree: Texture.from(Tree),
+};
+
 const DungeonAssets = {
   Wall: Texture.from(Wall),
   Floor: Texture.from(Floor),
   Chest: Texture.from(Chest),
   Door: Texture.from(Door),
-  Zombie: Texture.from(Zombie),
-  Wizard: Texture.from(Wizard),
   DoorOpen: Texture.from(DoorOpen),
 };
 
-export { DungeonAssets, Wizard, Knight, Elf };
+const Characters = {
+  Zombie: Texture.from(Zombie),
+  Wizard: Texture.from(Wizard),
+  Knight: Texture.from(Knight),
+  Elf: Texture.from(Elf),
+};
+
+const Buildings = {
+  House: Texture.from(House),
+  Tower: Texture.from(Tower),
+  Ruin: Texture.from(Ruin),
+};
+
+export { DungeonAssets, Characters, VillageAssets, Buildings, Wizard, Elf, Knight };
 
 // icons
 import Play from "./icons/play.svg?react";
 import Settings from "./icons/settings.svg?react";
 import Exit from "./icons/exit.svg?react";
+import { Water } from "./village";
 
 export { Play, Settings, Exit };

@@ -1,5 +1,5 @@
 import Pattern from "../Pattern/Pattern";
-const pattern = [
+const _pattern = [
   [1, 0, 0, 0],
   [0, 1, 0, 0],
   [1, 0, 1, 0],
@@ -7,10 +7,11 @@ const pattern = [
 ];
 
 type CoverProps = {
-    children: JSX.Element
-}
+  children: JSX.Element;
+  pattern?: number[][];
+};
 
-export default function Cover({ children }: CoverProps) {
+export default function Cover({ children, pattern = _pattern }: CoverProps) {
   return (
     <div className="w-full h-full relative">
       <div className="bg-peach h-full w-full border-2 border-black relative z-10">

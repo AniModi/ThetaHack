@@ -1,14 +1,9 @@
-import { DungeonAssets } from "../assets";
+import { DungeonAssets, Characters } from "../assets";
 
-const {
-  Wall,
-  Floor,
-  Door,
-  Chest,
-  Zombie,
-  Wizard: NPC,
-  DoorOpen,
-} = DungeonAssets;
+const { Wall, Floor, Door, Chest, DoorOpen } = DungeonAssets;
+
+const { Zombie, Elf: NPC } = Characters;
+
 export function isIsolatedWall(x: number, y: number, dungeonMap: string[][]) {
   return (
     (x > 0 && dungeonMap[y][x - 1] === "floor") ||

@@ -21,7 +21,7 @@ export class DungeonGenerator {
     minRoomSize: number,
     maxRoomSize: number,
     maxRooms: number,
-    enemyChance = 0.7,
+    enemyChance = 0.5,
     npcChance = 0.05,
     chestChance = 0.3
   ) {

@@ -1,15 +1,13 @@
 import { Container, Sprite } from "@pixi/react";
-import { DungeonAssets } from "../../assets";
+import { Characters } from "../../assets";
 import { useGame } from "../../hooks/useGame";
 import { TILE_SIZE } from "../../data/game_constants";
-import usePlayer from "../../hooks/usePlayer";
 
-const { Wizard } = DungeonAssets;
+const { Wizard } = Characters;
 
 export default function Player() {
-  const { initialPosition } = useGame();
+  const { initialPosition, playerPosition } = useGame();
 
-  const { playerPosition } = usePlayer();
 
   return (
     <Container position={initialPosition} anchor={0.5}>

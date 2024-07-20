@@ -5,4 +5,4 @@ export type TileType =
   | "exit"
   | "chest"
   | "enemy"
-  | "npc";
+  | "npc" | string;
