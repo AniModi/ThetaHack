@@ -72,7 +72,7 @@ export default function Game() {
       </Stage>
       <div className="absolute bottom-0 w-full z-10 p-3 flex gap-10">
         <PlayerCard></PlayerCard>
-        <div className="flex items-end justify-end w-fit">
+        <div className="flex items-end justify-end ml-auto flex-grow">
           {isTalking ? (
             <ConversationBox handleConversationEnd={handleConversationEnd}></ConversationBox>
           ) : (
