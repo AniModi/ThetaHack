@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <div className="flex items-center justify-center flex-col gap-5 w-full h-full relative">
-      <h1 className="text-white text-6xl mb-5">{title}</h1>
+      <h1 className="text-white text-8xl mb-16">{title}</h1>
       <Button text={connectText} handleClick={handleConnect}>
         <Settings className="fill-peach h-10 w-16" />
       </Button>
