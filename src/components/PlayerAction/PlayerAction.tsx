@@ -13,7 +13,11 @@ export default function PlayerAction() {
         <div className="bg-peach px-4 py-2">
           <p>
             <span className="font-bold mr-0.5">Press K</span>
-            to talk to {playerParameters.isNearCharacter}
+            {
+              playerParameters.isNearCharacter === "Theta" ?
+                "to enter Theta hall" :
+                `to talk to ${playerParameters.isNearCharacter}`
+            }
           </p>
         </div>
       </Cover>

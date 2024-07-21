@@ -16,13 +16,17 @@ import Flower from "./village/flower.png";
 import Tree from "./village/tree.png";
 import Tower from "./village/tower.png";
 import Ruin from "./village/ruin.png";
+import Theta from "./village/theta.svg";
+import WaterTile from "./village/water2.png";
+import Purple from "./village/purple.png";
 
 const VillageAssets = {
   Grass: Texture.from(Grass),
   Water: Water,
-
+  WaterTile: Texture.from(WaterTile),
   Flower: Texture.from(Flower),
   Tree: Texture.from(Tree),
+  Purple: Texture.from(Purple),
 };
 
 const DungeonAssets = {
@@ -38,12 +42,14 @@ const Characters = {
   Wizard: Texture.from(Wizard),
   Knight: Texture.from(Knight),
   Elf: Texture.from(Elf),
+  None: Texture.EMPTY,
 };
 
 const Buildings = {
   House: Texture.from(House),
   Tower: Texture.from(Tower),
   Ruin: Texture.from(Ruin),
+  Theta: Texture.from(Theta),
 };
 
 export {

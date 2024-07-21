@@ -9,6 +9,7 @@ type BuildingProps = {
   position: Position;
   height: number;
   width: number;
+  rotation?: boolean;
 };
 
 export default function Building({
@@ -17,6 +18,7 @@ export default function Building({
   position,
   height,
   width,
+  rotation,
 }: BuildingProps) {
   return (
     <Container key={building}>
@@ -26,6 +28,7 @@ export default function Building({
         texture={Buildings[building]}
         height={height}
         width={width}
+        rotation={rotation ? Math.PI / 2 : 0}
       ></Sprite>
       <Sprite
         x={(position.x * TILE_SIZE) + width}

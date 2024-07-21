@@ -5,6 +5,7 @@ import {
   houseCoordinate,
   ruinCoordinate,
   towerCoordinate,
+  thetaCoordinate,
 } from "../../data/village_map";
 import { Position } from "../../types/Position";
 import Building from "../Building/Building";
@@ -17,28 +18,36 @@ const buildingPlayerMap: Array<{
   height: number;
   width: number;
 }> = [
-  {
-    building: "House",
-    character: "Knight",
-    position: houseCoordinate,
-    height: 96,
-    width: 96,
-  },
-  {
-    building: "Ruin",
-    character: "Elf",
-    position: ruinCoordinate,
-    height: 96,
-    width: 96,
-  },
-  {
-    building: "Tower",
-    character: "Wizard",
-    position: towerCoordinate,
-    height: 96,
-    width: 72,
-  },
-];
+    {
+      building: "House",
+      character: "Knight",
+      position: houseCoordinate,
+      height: 96,
+      width: 96,
+    },
+    {
+      building: "Ruin",
+      character: "Elf",
+      position: ruinCoordinate,
+      height: 96,
+      width: 96,
+    },
+    {
+      building: "Tower",
+      character: "Wizard",
+      position: towerCoordinate,
+      height: 96,
+      width: 72,
+    },
+    {
+      building: "Theta",
+      character: "None",
+      position: thetaCoordinate,
+      height: 75,
+      width: 200,
+      rotation: true,
+    },
+  ];
 
 export default function Village() {
   const { initialPosition } = useGame();

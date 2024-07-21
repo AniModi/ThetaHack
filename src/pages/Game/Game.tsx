@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Player from "../../components/Player/Player";
 import Stage from "../../components/Stage/Stage";
 import { useGame } from "../../hooks/useGame";
@@ -10,6 +11,7 @@ import {
   houseCoordinate,
   ruinCoordinate,
   towerCoordinate,
+  thetaCoordinate,
   village_background,
 } from "../../data/village_map";
 import updatePlayerParams from "../../utils/updatePlayerParams";
@@ -18,6 +20,7 @@ import ConversationBox from "../../components/ConversationBox/ConversationBox";
 import { playerParameters } from "../../data/playerParameters";
 
 export default function Game() {
+  const navigate = useNavigate();
   const { map, setMap, playerPosition } = useGame();
   const [isTalking, setIsTalking] = useState(false);
   const app = useApp();
@@ -35,6 +38,7 @@ export default function Game() {
         { type: "Wizard", x: towerCoordinate.x + 1, y: towerCoordinate.y },
         { type: "Elf", x: ruinCoordinate.x + 1, y: ruinCoordinate.y },
         { type: "Knight", x: houseCoordinate.x + 1, y: houseCoordinate.y },
+        { type: "Theta", x: thetaCoordinate.x - 1, y: thetaCoordinate.y },
       ],
       { x: 25, y: 25 },
       { x: 0, y: 0 }
@@ -44,7 +48,10 @@ export default function Game() {
       if (e.key === "k") {
         if (playerParameters.isNearCharacter !== "") {
           app.ticker.stop();
-          setIsTalking(true);
+          if (playerParameters.isNearCharacter === "Theta")
+            navigate("/theta");
+          else
+            setIsTalking(true);
         }
       }
     }

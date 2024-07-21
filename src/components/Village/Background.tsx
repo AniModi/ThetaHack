@@ -4,7 +4,7 @@ import { TILE_SIZE } from "../../data/game_constants";
 import { VillageAssets } from "../../assets";
 import { useGame } from "../../hooks/useGame";
 
-const { Grass, Flower, Tree } = VillageAssets;
+const { Grass, Flower, Tree, WaterTile, Purple } = VillageAssets;
 
 export default function Background() {
   const { map } = useGame();
@@ -27,6 +27,12 @@ export default function Background() {
                 break;
               case "flower":
                 texture = Flower;
+                break;
+              case "water":
+                texture = WaterTile;
+                break;
+              case "purple":
+                texture = Purple;
                 break;
               default:
                 texture = Grass;
