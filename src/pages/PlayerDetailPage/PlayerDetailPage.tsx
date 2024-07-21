@@ -4,6 +4,8 @@ import { Elf, Knight, Wizard } from "../../assets";
 import Cover from "../../components/Cover/Cover";
 import ImageCard from "../../components/ImageCard/ImageCard";
 import Button2 from "../../components/Button2/Button2";
+import { useContract, useContractWrite } from "@thirdweb-dev/react"
+import { AVATAR_ADDRESS, AVATAR_ABI } from "../../utils/constants";
 
 const playerImage: Record<string, string> = {
   Elf: Elf,
@@ -38,6 +40,8 @@ const playerStats: Record<string, { [key: string]: number }> = {
 export default function PlayerDetailPage() {
   const { player } = useParams();
   const navigate = useNavigate();
+  const { contract } = useContract(AVATAR_ADDRESS, AVATAR_ABI);
+  const { mutateAsync } = useContractWrite(contract, "setAvatar");
   const [action, setAction] = useState("Choose");
   const [txHash, setTxHash] = useState("");
 
@@ -59,7 +63,11 @@ export default function PlayerDetailPage() {
   }
 
   async function choose() {
-    setTxHash("0x1234567890");
+    console.log("Choose", player);
+    const tx = await mutateAsync({
+      args: [player],
+    })
+    setTxHash(tx?.receipt?.transactionHash);
     setAction("Play");
   }
 
@@ -99,7 +107,7 @@ export default function PlayerDetailPage() {
               {txHash &&
                 <div className="flex flex-col justify-center items-center mt-20">
                   <h1 className="text-center text-xl font-semibold mb-2">Your avatar has been minted!</h1>
-                  <Button2 onClick={() => null} text="See" />
+                  <Button2 onClick={() => null} text="View tx" />
                 </div>
               }
             </div>

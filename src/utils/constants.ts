@@ -1,19 +1,19 @@
-export const THETA_TESTNET = {
-    chainId: 365,
+export const THETA_LOCAL = {
+    chainId: 366,
     chain: "Theta",
-    name: "Theta Testnet",
+    name: "Theta Local Privatenet",
     testnet: true,
-    rpc: ["https://eth-rpc-api-testnet.thetatoken.org/rpc"],
+    rpc: ["http://127.0.0.1:18888/rpc"],
     nativeCurrency: {
         decimals: 18,
         name: "Theta Fuel",
         symbol: "TFUEL",
     },
     shortName: "theta",
-    slug: "theta-testnet",
+    slug: "theta",
 }
 export const CLIENT_ID = "2c4b0adbe95c2e2d27eaa141a368ea15"
-export const AVATAR_ADDRESS = "0xca38cd4a06e8f74d4bac24e219ac4a349d8f4c72"
+export const AVATAR_ADDRESS = "0xAE519FC2Ba8e6fFE6473195c092bF1BAe986ff90"
 export const AVATAR_ABI = [
 	{
 		"inputs": [
