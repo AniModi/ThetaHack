@@ -71,10 +71,12 @@ import EmptyCardEnemy from "./cards/enemy_empty_card.png";
 import CardBack from "./cards/card_back.png";
 import CardBackEnemy from "./cards/enemy_card_back.png";
 import CardFrame from "./cards/card.png";
-import WizardCard from "./cards/wizard.png";
+import CardFrameEnemy from "./cards/enemy_card.png";
 import CardHealth from "./cards/health.png";
 import CardDamage from "./cards/damage.png";
-
+import WizardCard from "./cards/image/wizard.png";
+import NinjaCard from "./cards/image/ninja.png";
+import DemonCard from "./cards/image/demon.png";
 
 const Cards = {
   PlayBoard: Texture.from(PlayBoard),
@@ -86,6 +88,56 @@ const Cards = {
   WizardCard: Texture.from(WizardCard),
   CardHealth: Texture.from(CardHealth),
   CardDamage: Texture.from(CardDamage),
+  CardFrameEnemy: Texture.from(CardFrameEnemy),
+  NinjaCard: Texture.from(NinjaCard),
+  DemonCard: Texture.from(DemonCard),
 };
 
-export { Cards };
+// card images
+import ArchmageAlara from "./cards/image/wizard_faction/ArchmageAlara.jpg";
+import ChronomancerCyrus from "./cards/image/wizard_faction/ChronomancerCyrus.jpg";
+import IllusionistThane from "./cards/image/wizard_faction/IllusionistThane.jpg";
+import Necromancer_Varek from "./cards/image/wizard_faction/Necromancer_Varek.jpg";
+import LadySeraphina from "./cards/image/knight_faction/LadySeraphina.jpg";
+import PaladinElara from "./cards/image/knight_faction/PaladinElara.jpg";
+import SirGalahad from "./cards/image/knight_faction/SirGalahad.jpg";
+import SquireThalia from "./cards/image/knight_faction/SquireThalia.jpg";
+import HighDruidElowen from "./cards/image/elf_faction/HighDruidElowen.jpg";
+import RangerTalon from "./cards/image/elf_faction/RangerTalon.jpg";
+import MoonPriestessElysia from "./cards/image/elf_faction/MoonPriestessElysia.jpg";
+import WindWhispererThalor from "./cards/image/elf_faction/WindWhispererThalor.jpg";
+import DarkSorcererMalakai from "./cards/image/evil_faction/DarkSorcererMalakai.jpg";
+import ShadowAssassinKael from "./cards/image/evil_faction/ShadowAssassinKael.jpg";
+import DeathlordDrakus from "./cards/image/evil_faction/DeathlordDrakus.jpg";
+import BloodWitchSylva from "./cards/image/evil_faction/BloodWitchSylva.jpg";
+import ChaosCultistVermina from "./cards/image/evil_faction/ChaosCultistVermina.jpg";
+
+const CardImages = {
+  WIZARDS: {
+    ArchmageAlara: Texture.from(ArchmageAlara),
+    ChronomancerCyrus: Texture.from(ChronomancerCyrus),
+    IllusionistThane: Texture.from(IllusionistThane),
+    Necromancer_Varek: Texture.from(Necromancer_Varek),
+  },
+  KNIGHTS: {
+    LadySeraphina: Texture.from(LadySeraphina),
+    PaladinElara: Texture.from(PaladinElara),
+    SirGalahad: Texture.from(SirGalahad),
+    SquireThalia: Texture.from(SquireThalia),
+  },
+  ELVES: {
+    HighDruidElowen: Texture.from(HighDruidElowen),
+    RangerTalon: Texture.from(RangerTalon),
+    MoonPriestessElysia: Texture.from(MoonPriestessElysia),
+    WindWhispererThalor: Texture.from(WindWhispererThalor),
+  },
+  EVIL: {
+    DarkSorcererMalakai: Texture.from(DarkSorcererMalakai),
+    ShadowAssassinKael: Texture.from(ShadowAssassinKael),
+    DeathlordDrakus: Texture.from(DeathlordDrakus),
+    BloodWitchSylva: Texture.from(BloodWitchSylva),
+    ChaosCultistVermina: Texture.from(ChaosCultistVermina),
+  },
+};
+
+export { Cards, CardImages };
