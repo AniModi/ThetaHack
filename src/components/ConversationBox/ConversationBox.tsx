@@ -72,6 +72,7 @@ export default function ConversationBox({
               <UserResponse
                 responses={currentStepData.responses.map((r) => r.text)}
                 selectedOption={count}
+                setSelectedOption={setCount}
               />
             )}
           </div>

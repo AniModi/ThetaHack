@@ -1,9 +1,11 @@
 export default function UserResponse({
   responses,
   selectedOption,
+  setSelectedOption
 }: {
   responses: string[];
   selectedOption: number;
+  setSelectedOption: React.Dispatch<React.SetStateAction<number>>;
 }) {
   return (
     <div className="flex-grow border-l-2 border-black p-3">
@@ -12,10 +14,11 @@ export default function UserResponse({
         {responses.map((response, idx) => {
           return (
             <li
-              className={`leading-4 ${
+              className={`leading-4 cursor-pointer ${
                 idx === selectedOption ? "font-bold" : ""
               }`}
               key={response}
+              onClick={() => setSelectedOption(idx)}
             >
               {response}
             </li>

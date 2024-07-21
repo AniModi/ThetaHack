@@ -46,7 +46,15 @@ const Buildings = {
   Ruin: Texture.from(Ruin),
 };
 
-export { DungeonAssets, Characters, VillageAssets, Buildings, Wizard, Elf, Knight };
+export {
+  DungeonAssets,
+  Characters,
+  VillageAssets,
+  Buildings,
+  Wizard,
+  Elf,
+  Knight,
+};
 
 // icons
 import Play from "./icons/play.svg?react";
@@ -55,3 +63,29 @@ import Exit from "./icons/exit.svg?react";
 import { Water } from "./village";
 
 export { Play, Settings, Exit };
+
+// cards
+import PlayBoard from "./cards/playboard.png";
+import EmptyCard from "./cards/empty_card.png";
+import EmptyCardEnemy from "./cards/enemy_empty_card.png";
+import CardBack from "./cards/card_back.png";
+import CardBackEnemy from "./cards/enemy_card_back.png";
+import CardFrame from "./cards/card.png";
+import WizardCard from "./cards/wizard.png";
+import CardHealth from "./cards/health.png";
+import CardDamage from "./cards/damage.png";
+
+
+const Cards = {
+  PlayBoard: Texture.from(PlayBoard),
+  EmptyCard: Texture.from(EmptyCard),
+  EmptyCardEnemy: Texture.from(EmptyCardEnemy),
+  CardBack: Texture.from(CardBack),
+  CardBackEnemy: Texture.from(CardBackEnemy),
+  CardFrame: Texture.from(CardFrame),
+  WizardCard: Texture.from(WizardCard),
+  CardHealth: Texture.from(CardHealth),
+  CardDamage: Texture.from(CardDamage),
+};
+
+export { Cards };
