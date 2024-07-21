@@ -2,46 +2,59 @@ import { Container, Sprite, Text } from "@pixi/react";
 import { TextMetrics } from "pixi.js";
 import { Cards } from "../../assets";
 import { TextStyle } from "pixi.js";
+import {Texture} from "@pixi/core"
+import { Position } from "../../types/Position";
 
-const { CardFrame, WizardCard, CardHealth, CardDamage } = Cards;
+const { CardHealth, CardDamage } = Cards;
 
-export default function Card() {
-  const health = 10;
+
+type CardProps = {
+  frame: Texture;
+  image: Texture;
+  name: string;
+  health: string;
+  damage: string;
+  position: Position
+  onClick: () => void;
+}
+
+const style = new TextStyle({ fill: "#0f0000", fontSize: 12 });
+
+export default function Card({damage, health, image, name, frame, position, onClick}: CardProps) {
   const textMetrics = TextMetrics.measureText(
-    "10",
-    new TextStyle({ fill: "#0f0000", fontSize: 14 })
+    health,
+    style
   );
   const x = 30 - textMetrics.width;
   const x2 = 120 - textMetrics.width;
 
-  const name = "Wizard";
 
   const wizardTextMetrics = TextMetrics.measureText(
     name,
-    new TextStyle({ fill: "white", fontSize: 14 })
+    style
   );
 
   return (
-    <Container>
-      <Sprite texture={WizardCard} width={150} height={225} />
-      <Sprite texture={CardFrame} width={150} height={225} />
+    <Container position={position} interactive onclick={onClick}>
+      <Sprite texture={image} width={150} height={225} />
+      <Sprite texture={frame} width={150} height={225} />
       <Text
-        text={health.toString()}
-        style={new TextStyle({ fill: "#0f0000", fontSize: 14 })}
-        y={170}
+        text={health}
+        style={style}
+        y={173}
         x={x}
       />
-      <Sprite texture={CardHealth} width={15} height={15} x={32} y={172} />
+      <Sprite texture={CardHealth} width={15} height={15} x={32} y={173} />
       <Text
-        text={health.toString()}
-        style={new TextStyle({ fill: "#0f0000", fontSize: 14 })}
-        y={170}
+        text={damage}
+        style={style}
+        y={173}
         x={x2}
       />
-      <Sprite texture={CardDamage} width={15} height={15} x={122} y={172} />
+      <Sprite texture={CardDamage} width={15} height={15} x={122} y={173} />
       <Text
         text={name}
-        style={new TextStyle({ fill: "white", fontSize: 14 })}
+        style={style}
         y={210 - wizardTextMetrics.height / 2}
         x={75 - wizardTextMetrics.width / 2}
       />
