@@ -35,10 +35,13 @@ export default function Home() {
       <Button text={connectText} handleClick={handleConnect}>
         <Settings className="fill-peach h-10 w-16" />
       </Button>
-      <Button text="Play" handleClick={handlePlay}>
-        <Play className="fill-peach h-10 w-16" />
-      </Button>
-      {address && <p className="text-white">Connected address: {address}</p>} {/* Change the design */}
+      {address && <>
+        <Button text="Play" handleClick={handlePlay}>
+          <Play className="fill-peach h-10 w-16" />
+        </Button>
+        <p className="text-white">Connected address: {address}</p> {/* Change the design */}
+      </>
+      }
     </div>
   );
 }
