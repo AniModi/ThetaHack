@@ -204,7 +204,7 @@ const Attacks = {
     data: FireballData as SpriteSheetData,
     img: FireballSheet,
   }),
-  Lightening: getTextureFromSpriteSheet({
+  Lightning: getTextureFromSpriteSheet({
     data: lighteningData as SpriteSheetData,
     img: lighteningSheet,
   }),

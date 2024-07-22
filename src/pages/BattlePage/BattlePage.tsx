@@ -3,7 +3,6 @@ import BattleActions from "../../components/BattleActions/BattleActions";
 import BattleBackground from "../../components/BattleBackground/BattleBackground";
 import Card from "../../components/Card/Card";
 import Stage from "../../components/Stage/Stage";
-import { EvilCards, WizardCards } from "../../data/card_game";
 import { CARD_HEIGHT, CARD_WIDTH } from "../../data/game_constants";
 import { Attacks } from "../../assets";
 import { useState } from "react";
