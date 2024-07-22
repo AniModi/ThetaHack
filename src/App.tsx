@@ -4,6 +4,7 @@ import Game from "./pages/Game/Game";
 import PlayerCreation from "./pages/PlayerCreation/PlayerCreation";
 import PlayerDetailPage from "./pages/PlayerDetailPage/PlayerDetailPage";
 import CardGame from "./pages/CardGame/CardGame";
+import BattlePage from "./pages/BattlePage/BattlePage";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/create-player/:player" element={<PlayerDetailPage/>} />
         <Route path="/play" element={<Game />} />
         <Route path="/play/card" element={<CardGame />} />
+        <Route path="/play/card/battle" element={<BattlePage />} />
       </Routes>
     </div>
   );

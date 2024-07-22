@@ -141,3 +141,11 @@ const CardImages = {
 };
 
 export { Cards, CardImages };
+
+import BattleBackgroundImage from "./battle/background.png";
+
+const BattleAssets = {
+  BattleBackgroundImage: Texture.from(BattleBackgroundImage),
+}
+
+export { BattleAssets };
