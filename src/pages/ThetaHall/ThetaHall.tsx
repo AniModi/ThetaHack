@@ -14,7 +14,7 @@ import updatePlayerParams from "../../utils/updatePlayerParams";
 import { playerParameters } from "../../data/playerParameters";
 import PlayerCard from "../../components/PlayerCard/PlayerCard";
 import HallAction from "../../components/HallAction/HallAction";
-import ConversationBox from "../../components/ConversationBox/ConversationBox";
+import ThetaDialogue from "../../components/ThetaDialogue/ThetaDialogue";
 
 export default function ThetaHall() {
     const { map, setMap, playerPosition } = useGame();
@@ -70,7 +70,7 @@ export default function ThetaHall() {
                 <PlayerCard></PlayerCard>
                 <div className="flex items-end justify-end ml-auto flex-grow">
                     {isTalking ? (
-                        <ConversationBox handleConversationEnd={handleConversationEnd}></ConversationBox>
+                        <ThetaDialogue handleConversationEnd={handleConversationEnd} />
                     ) : (
                         <HallAction />
                     )}
