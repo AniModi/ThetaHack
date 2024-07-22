@@ -5,17 +5,23 @@ import {
   useConnect,
   useConnectionStatus,
   useAddress,
+  useSwitchChain,
   metamaskWallet,
 } from "@thirdweb-dev/react";
+import { THETA_LOCAL, AVATAR_ABI, AVATAR_ADDRESS } from "../../utils/constants";
 import Button from "../../components/Button/Button";
+import { useContract, useContractRead } from "@thirdweb-dev/react";
 
 export default function Home() {
   const navigate = useNavigate();
   const address = useAddress();
   const connect = useConnect();
+  const switchChain = useSwitchChain();
   const connection = useConnectionStatus();
   const [connectText, setConnectText] = useState<string>("Connect Wallet");
   const [title, setTitle] = useState<string>("");
+  const { contract } = useContract(AVATAR_ADDRESS, AVATAR_ABI);
+  const { data } = useContractRead(contract, "avatars", [address]);
 
   useEffect(() => {
     if (address) {
@@ -23,6 +29,7 @@ export default function Home() {
     } else {
       setConnectText("Connect Wallet");
     }
+    switchChain(THETA_LOCAL.chainId);
   }, [address]);
 
   useEffect(() => {
@@ -46,7 +53,10 @@ export default function Home() {
   }
 
   function handlePlay() {
-    navigate("/create-player");
+    if (data)
+      navigate("/play");
+    else
+      navigate("/create-player");
   }
 
   return (

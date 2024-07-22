@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Elf, Knight, Wizard } from "../../assets";
 import Cover from "../../components/Cover/Cover";
 import ImageCard from "../../components/ImageCard/ImageCard";
 import Button2 from "../../components/Button2/Button2";
+import { useContract, useContractWrite } from "@thirdweb-dev/react"
+import { AVATAR_ADDRESS, AVATAR_ABI } from "../../utils/constants";
 
 const playerImage: Record<string, string> = {
   Elf: Elf,
@@ -28,7 +31,7 @@ const playerStats: Record<string, { [key: string]: number }> = {
   Wizard: {
     health: 80,
     mana: 120,
-    intelligence: 40,
+    combat: 20,
     agility: 25,
     wisdom: 35,
   },
@@ -37,6 +40,10 @@ const playerStats: Record<string, { [key: string]: number }> = {
 export default function PlayerDetailPage() {
   const { player } = useParams();
   const navigate = useNavigate();
+  const { contract } = useContract(AVATAR_ADDRESS, AVATAR_ABI);
+  const { mutateAsync } = useContractWrite(contract, "setAvatar");
+  const [action, setAction] = useState("Choose");
+  const [txHash, setTxHash] = useState("");
 
   // Render nothing if player type is unknown
   if (!player || !playerImage[player]) {
@@ -48,8 +55,20 @@ export default function PlayerDetailPage() {
     navigate(-1);
   }
 
-  function play() {
-    navigate("/play");
+  async function handleAction() {
+    if (action === "Choose")
+      await choose();
+    else if (action === "Play")
+      navigate("/play");
+  }
+
+  async function choose() {
+    console.log("Choose", player);
+    const tx = await mutateAsync({
+      args: [player],
+    })
+    setTxHash(tx?.receipt?.transactionHash);
+    setAction("Play");
   }
 
   const stats = playerStats[player];
@@ -82,9 +101,15 @@ export default function PlayerDetailPage() {
                 ))}
               </div>
               <div className="flex justify-center gap-3 mt-4">
-                <Button2 onClick={play} text="Play" />
+                <Button2 onClick={handleAction} text={action} />
                 <Button2 onClick={goBack} text="Go Back" />
               </div>
+              {txHash &&
+                <div className="flex flex-col justify-center items-center mt-20">
+                  <h1 className="text-center text-xl font-semibold mb-2">Your avatar has been minted!</h1>
+                  <Button2 onClick={() => null} text="View tx" />
+                </div>
+              }
             </div>
           </div>
         </Cover>

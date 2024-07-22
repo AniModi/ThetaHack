@@ -1,10 +1,10 @@
 import { Container, Sprite } from "@pixi/react";
 import { Fragment } from "react/jsx-runtime";
 import { TILE_SIZE } from "../../data/game_constants";
-import { VillageAssets } from "../../assets";
+import { HallAssets } from "../../assets";
 import { useGame } from "../../hooks/useGame";
 
-const { Grass, Flower, Tree, WaterTile, Purple } = VillageAssets;
+const { Grass, Flower, Tree, WaterTile, Purple, Stone, Brick } = HallAssets;
 
 export default function Background() {
   const { map } = useGame();
@@ -19,6 +19,12 @@ export default function Background() {
             let texture;
 
             switch (tile) {
+              case "stone":
+                texture = Stone;
+                break;
+              case "brick":
+                texture = Brick;
+                break;
               case "floor":
                 texture = Grass;
                 break;

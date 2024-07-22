@@ -6,7 +6,11 @@ import {
   ruinCoordinate,
   towerCoordinate,
   thetaCoordinate,
-} from "../../data/village_map";
+  edgeCoordinate,
+  edgeCoordinate2,
+  aiCoordinate,
+  videoCoordinate
+} from "../../data/hall_map";
 import { Position } from "../../types/Position";
 import Building from "../Building/Building";
 import { useGame } from "../../hooks/useGame";
@@ -19,33 +23,60 @@ const buildingPlayerMap: Array<{
   width: number;
 }> = [
     {
-      building: "House",
-      character: "Knight",
+      building: "Fort",
+      character: "None",
       position: houseCoordinate,
-      height: 96,
-      width: 96,
+      height: 300,
+      width: 300,
     },
     {
-      building: "Ruin",
-      character: "Elf",
+      building: "Shao",
+      character: "None",
       position: ruinCoordinate,
-      height: 96,
-      width: 96,
+      height: 300,
+      width: 300,
     },
     {
-      building: "Tower",
-      character: "Wizard",
+      building: "Castle",
+      character: "None",
       position: towerCoordinate,
-      height: 96,
-      width: 72,
+      height: 450,
+      width: 450,
     },
     {
-      building: "Theta",
+      building: "Edge",
+      character: "None",
+      position: edgeCoordinate,
+      height: 60,
+      width: 300,
+    },
+    {
+      building: "Edge",
+      character: "None",
+      position: edgeCoordinate2,
+      height: 60,
+      width: 300,
+    },
+    {
+      building: "AI",
+      character: "None",
+      position: aiCoordinate,
+      height: 60,
+      width: 60,
+    },
+    {
+      building: "Video",
+      character: "None",
+      position: videoCoordinate,
+      height: 60,
+      width: 70,
+    },
+    {
+      building: "ThetaNet",
       character: "None",
       position: thetaCoordinate,
-      height: 75,
-      width: 200,
-      rotation: true,
+      height: 80,
+      width: 250,
     },
   ];
 

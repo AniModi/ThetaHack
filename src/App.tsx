@@ -5,6 +5,7 @@ import PlayerCreation from "./pages/PlayerCreation/PlayerCreation";
 import PlayerDetailPage from "./pages/PlayerDetailPage/PlayerDetailPage";
 import CardGame from "./pages/CardGame/CardGame";
 import BattlePage from "./pages/BattlePage/BattlePage";
+import ThetaHall from "./pages/ThetaHall/ThetaHall";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/play" element={<Game />} />
         <Route path="/play/card" element={<CardGame />} />
         <Route path="/play/card/battle" element={<BattlePage />} />
+        <Route path="/theta" element={<ThetaHall />} />
       </Routes>
     </div>
   );

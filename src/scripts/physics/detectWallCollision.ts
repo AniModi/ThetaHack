@@ -6,6 +6,7 @@ export default function detectWallCollision(
   map: MapType,
   delta: Position
 ): Position {
+  const passageAllowed = ["floor", "purple", "stone"];
   const { x, y } = playerPosition;
   const { x: dx, y: dy } = delta;
   const change: Position = { x: 0, y: 0 };
@@ -18,7 +19,7 @@ export default function detectWallCollision(
   } else {
     newPositionX = Math.floor(x + dx);
   }
-  if (tiles[Math.round(y)][newPositionX] === "floor") {
+  if (passageAllowed.includes(tiles[Math.round(y)][newPositionX])) {
     change.x = dx;
   }
   if (dy > 0) {
@@ -26,7 +27,7 @@ export default function detectWallCollision(
   } else {
     newPositionY = Math.floor(y + dy);
   }
-  if (tiles[newPositionY][Math.round(x)] === "floor") {
+  if (passageAllowed.includes(tiles[newPositionY][Math.round(x)])) {
     change.y = dy;
   }
   return change;
