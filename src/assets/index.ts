@@ -180,6 +180,42 @@ import BattleBackgroundImage from "./battle/background.png";
 
 const BattleAssets = {
   BattleBackgroundImage: Texture.from(BattleBackgroundImage),
-}
+};
 
 export { BattleAssets };
+
+// Attacls
+import FireballData from "./battle/attacks/fireball/spritesheet.json";
+import FireballSheet from "./battle/attacks/fireball/spritesheet.png";
+import lighteningData from "./battle/attacks/lightening/spritesheet.json";
+import lighteningSheet from "./battle/attacks/lightening/spritesheet.png";
+import PoisonData from "./battle/attacks/poison/spritesheet.json";
+import PoisonSheet from "./battle/attacks/poison/spritesheet.png";
+import IceData from "./battle/attacks/ice/spritesheet.json";
+import IceSheet from "./battle/attacks/ice/spritesheet.png";
+
+
+
+import { getTextureFromSpriteSheet } from "../utils/loadTexturesFromSpritesheet";
+import { SpriteSheetData } from "../types/SpriteSheetData";
+
+const Attacks = {
+  Fireball: getTextureFromSpriteSheet({
+    data: FireballData as SpriteSheetData,
+    img: FireballSheet,
+  }),
+  Lightning: getTextureFromSpriteSheet({
+    data: lighteningData as SpriteSheetData,
+    img: lighteningSheet,
+  }),
+  Poison: getTextureFromSpriteSheet({
+    data: PoisonData as SpriteSheetData,
+    img: PoisonSheet,
+  }),
+  Ice: getTextureFromSpriteSheet({
+    data: IceData as SpriteSheetData,
+    img: IceSheet,
+  }),
+};
+
+export { Attacks };

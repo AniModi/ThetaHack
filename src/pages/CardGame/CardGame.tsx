@@ -55,6 +55,7 @@ export default function CardGame() {
             containerWidth={window.innerWidth}
             cards={cardList[1]}
             y={100}
+            type= "enemy"
           />
         </Container>
         <Container>
@@ -63,6 +64,7 @@ export default function CardGame() {
             containerWidth={window.innerWidth}
             cards={cardList[0]}
             y={400}
+            type= "player"
           />
           <Container x={window.innerWidth - CARD_WIDTH - 50} y={400}>
             <Sprite
