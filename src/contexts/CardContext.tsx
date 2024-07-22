@@ -4,6 +4,7 @@ import { CardType } from "../types/CardType";
 import { EvilCards } from "../data/card_game";
 import { useNavigate } from "react-router-dom";
 import { AttackData } from "../types/AttackData";
+import { attackEnemy } from "../service/battleServices";
 
 export const CardContext = createContext<CardContextType | undefined>(undefined);
 
@@ -17,17 +18,9 @@ export function CardContextProvider({ children }: { children: ReactNode }) {
     navigate("/play/card/battle");
   }, [navigate]);
 
-  const updateEnemyHealth = useCallback((attack: AttackData) => {
-    const [min, max] = attack.Damage.split("-").map(Number);
-    const criticalRate = parseInt(attack["Critical Rate"].split("%")[0], 10) / 100;
+  const updateEnemyHealth = useCallback(async (attack: string) => {
 
-    let damage = Math.random() * (max - min) + min;
-
-    if (Math.random() < criticalRate) {
-      damage *= 2;
-    }
-
-    damage = Math.round(damage);
+    const damage = await attackEnemy(localStorage.getItem("dungeonID")!, attack);
 
     setEnemyCard((prev) => {
       if (!prev) return prev;

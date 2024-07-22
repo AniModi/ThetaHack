@@ -10,6 +10,6 @@ export type CardContextType = {
     enemyCard: CardType | undefined;
     setEnemyCard: Dispatch<SetStateAction<CardType | undefined>>;
     startBattle: () => void;
-    updateEnemyHealth: (attack: AttackData) => void
+    updateEnemyHealth: (attack: string) => void
     updatePlayerHealth: (attack: AttackData) => void
 }

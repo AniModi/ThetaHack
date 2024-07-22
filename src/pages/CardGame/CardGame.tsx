@@ -21,7 +21,7 @@ const PLAYER_CARDS = WizardCards.slice(0, 3)
 
 export default function CardGame() {
   const { setCardList, cardList } = useCard();
-  const [curCard, setCurCard] = useState(0);
+  const [curCard, setCurCard] = useState(cardList[0].length);
 
   const addCard = () => {
     setCardList((prev) => {

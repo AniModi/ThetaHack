@@ -7,4 +7,5 @@ export type MapType = {
   entities: Entity[];
   entry: Position;
   exit: Position;
+  chestPositions: Position[];
 };

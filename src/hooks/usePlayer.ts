@@ -5,6 +5,7 @@ import { useTick } from "@pixi/react";
 import { keyState } from "../utils/userInputs";
 import { playerPositionHandler } from "../scripts/positionHandler.ts/handlePlayerPosition";
 import { MapType } from "../types/MapType";
+import updatePlayerParams from "../utils/updatePlayerParams";
 
 export default function usePlayer(
   map: MapType | undefined,
@@ -49,7 +50,8 @@ export default function usePlayer(
 
       dx = change.x;
       dy = change.y;
-
+      
+      updatePlayerParams(playerPosition, [... map.chestPositions.map((pos) => ({type: "chest", ...pos})), ...map.entities]);
       setPlayerPosition((prev) => {
         return {
           x: prev.x + dx,

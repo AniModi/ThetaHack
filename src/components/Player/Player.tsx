@@ -9,6 +9,7 @@ export default function Player() {
   const { initialPosition, playerPosition } = useGame();
 
 
+
   return (
     <Container position={initialPosition} anchor={0.5}>
       <Sprite

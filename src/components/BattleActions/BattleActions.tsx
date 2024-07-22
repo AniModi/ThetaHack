@@ -1,37 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AttackButton from "../AttackButton/AttackButton";
 import Cover from "../Cover/Cover";
 import { AttackData } from "../../types/AttackData";
+import { getAttacks } from "../../service/battleServices";
 
 type BattleActionsProps = {
   onClick: (id: number, attack: AttackData) => void;
   attacks: string[];
-};
-
-const attackData: Record<string, AttackData> = {
-  Fireball: {
-    Damage: "10-15",
-    "Critical Rate": "10%",
-    Description:
-      "A fiery projectile that engulfs the target in flames upon impact.",
-  },
-  Ice: {
-    Damage: "8-12",
-    "Critical Rate": "15%",
-    Description:
-      "A freezing blast that chills the target, slowing their movements.",
-  },
-  Poison: {
-    Damage: "8-12",
-    "Critical Rate": "15%",
-    Description: "A toxic attack that poisons the target over time.",
-  },
-  Lightning: {
-    Damage: "12-18",
-    "Critical Rate": "12%",
-    Description:
-      "A swift strike that electrocutes the target with a bolt of lightning.",
-  },
 };
 
 export default function BattleActions({
@@ -39,9 +14,14 @@ export default function BattleActions({
   attacks,
 }: BattleActionsProps) {
   const [hoveredAttack, setHoveredAttack] = useState<number>(0);
+  const [attackData, setAttackData] = useState<Record<string, AttackData>>({});
+
+  useEffect(() => {
+    getAttacks().then((data) => setAttackData(data!));
+  }, []);
 
   const currentAttackData = attackData[attacks[hoveredAttack]];
-
+  if (!currentAttackData) return null;
 
   return (
     <div className="w-full bottom-0 p-3 flex gap-10">

@@ -8,7 +8,6 @@ import { Attacks } from "../../assets";
 import { useEffect, useState } from "react";
 import { Position } from "../../types/Position";
 import { useCard } from "../../hooks/useCard";
-import { AttackData } from "../../types/AttackData";
 
 const playerPosition = { x: 100, y: window.innerHeight / 2 - CARD_HEIGHT / 2 };
 const enemyPosition = {
@@ -30,7 +29,7 @@ const enemyAttackPosition = {
   y: enemyPosition.y + CARD_HEIGHT / 2,
 };
 
-let attack: AttackData;
+let attack: string;
 
 export default function BattlePage() {
   const { playerCard, enemyCard, updateEnemyHealth, updatePlayerHealth } = useCard();
@@ -116,10 +115,10 @@ export default function BattlePage() {
       <div className="absolute w-full bottom-0">
         <BattleActions
           attacks={attacks}
-          onClick={(i: number, _attack: AttackData) => {
+          onClick={(i: number) => {
             setAttackSpritePosition(attackPosition);
             setAttackSprite(attacks[i]);
-            attack = _attack;
+            attack = attacks[i];
           }}
         />
       </div>

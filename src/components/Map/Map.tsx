@@ -4,7 +4,6 @@ import { DungeonAssets } from "../../assets";
 import { useGame } from "../../hooks/useGame";
 import { Fragment } from "react/jsx-runtime";
 import { TILE_SIZE } from "../../data/game_constants";
-
 const { Floor } = DungeonAssets;
 
 export default function Map() {
