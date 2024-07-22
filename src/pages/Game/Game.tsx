@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Player from "../../components/Player/Player";
 import Stage from "../../components/Stage/Stage";
 import { useGame } from "../../hooks/useGame";
-import { handleUserInput } from "../../utils/userInputs";
 import Village from "../../components/Village/Village";
 import PlayerCard from "../../components/PlayerCard/PlayerCard";
 import PlayerAction from "../../components/PlayerAction/PlayerAction";
@@ -30,7 +29,6 @@ export default function Game() {
     app.ticker.start();
   }
 
-
   useEffect(() => {
     setMap(
       village_background,
@@ -47,23 +45,21 @@ export default function Game() {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "k") {
         if (playerParameters.isNearCharacter !== "") {
-          app.ticker.stop();
-          if (playerParameters.isNearCharacter === "Theta")
+          if (playerParameters.isNearCharacter === "Theta") {
             navigate("/theta");
-          else
+          } else {
+            app.ticker.stop();
             setIsTalking(true);
+          }
         }
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
-    const unsubscribe = handleUserInput();
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      unsubscribe();
     };
-  }, [setMap, app]);
+  }, [setMap, app, navigate]);
 
   if (!map) {
     return;
@@ -81,7 +77,9 @@ export default function Game() {
         <PlayerCard></PlayerCard>
         <div className="flex items-end justify-end ml-auto flex-grow">
           {isTalking ? (
-            <ConversationBox handleConversationEnd={handleConversationEnd}></ConversationBox>
+            <ConversationBox
+              handleConversationEnd={handleConversationEnd}
+            ></ConversationBox>
           ) : (
             <PlayerAction></PlayerAction>
           )}

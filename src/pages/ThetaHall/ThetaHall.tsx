@@ -10,7 +10,6 @@ import {
     towerCoordinate,
     hall_background,
 } from "../../data/hall_map";
-import { handleUserInput } from "../../utils/userInputs";
 import updatePlayerParams from "../../utils/updatePlayerParams";
 import { playerParameters } from "../../data/playerParameters";
 import PlayerCard from "../../components/PlayerCard/PlayerCard";
@@ -48,11 +47,9 @@ export default function ThetaHall() {
         }
 
         window.addEventListener("keydown", handleKeyDown);
-        const unsubscribe = handleUserInput();
 
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
-            unsubscribe();
         };
     }, [setMap, app]);
 

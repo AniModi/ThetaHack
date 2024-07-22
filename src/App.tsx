@@ -6,8 +6,15 @@ import PlayerDetailPage from "./pages/PlayerDetailPage/PlayerDetailPage";
 import CardGame from "./pages/CardGame/CardGame";
 import BattlePage from "./pages/BattlePage/BattlePage";
 import ThetaHall from "./pages/ThetaHall/ThetaHall";
+import { useEffect } from "react";
+import { handleUserInput } from "./utils/userInputs";
 
 export default function App() {
+
+  useEffect(() => {
+    return handleUserInput();
+  }, [])
+
   return (
     <div className="h-full w-full bg-blue">
       <Routes>
