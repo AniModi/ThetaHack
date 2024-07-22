@@ -5,9 +5,10 @@ import Card from "../../components/Card/Card";
 import Stage from "../../components/Stage/Stage";
 import { CARD_HEIGHT, CARD_WIDTH } from "../../data/game_constants";
 import { Attacks } from "../../assets";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Position } from "../../types/Position";
 import { useCard } from "../../hooks/useCard";
+import { AttackData } from "../../types/AttackData";
 
 const playerPosition = { x: 100, y: window.innerHeight / 2 - CARD_HEIGHT / 2 };
 const enemyPosition = {
@@ -24,19 +25,58 @@ const attackPosition = {
   y: playerPosition.y + CARD_HEIGHT / 2,
 };
 
-export default function BattlePage() {
+const enemyAttackPosition = {
+  x: enemyPosition.x - CARD_WIDTH - 10,
+  y: enemyPosition.y + CARD_HEIGHT / 2,
+};
 
-  const {playerCard, enemyCard} = useCard();
+let attack: AttackData;
+
+export default function BattlePage() {
+  const { playerCard, enemyCard, updateEnemyHealth, updatePlayerHealth } = useCard();
 
   const [attackSpritePosition, setAttackSpritePosition] =
     useState<Position>(attackPosition);
 
+  const [attackComplete, setAttackComplete] = useState<boolean>(false);
+  const [enemyAttackSpritePosition, setEnemyAttackSpritePosition] =
+    useState<Position>(enemyAttackPosition);
+
+  const [enemyAttack, setEnemyAttack] = useState<keyof typeof Attacks>();
+  const [enemyAttackComplete, setEnemyAttackComplete] = useState<boolean>(false);
+
+
+  useEffect(() => {
+    if (attackComplete) {
+      updateEnemyHealth(attack);
+      setAttackComplete(false);
+      setEnemyAttackSpritePosition(enemyAttackPosition);
+      setEnemyAttack("Fireball");
+    }
+    if (enemyAttackComplete) {
+      updatePlayerHealth({Damage: "10-11", "Critical Rate": "10%", Description: "A fiery projectile that engulfs the target in flames upon impact."});
+      setEnemyAttackComplete(false);
+      setAttackSpritePosition(attackPosition);
+    }
+  }, [attackComplete, updateEnemyHealth, enemyAttackComplete, updatePlayerHealth]);
+
   useTick(() => {
-    if (!attackSprite) return;
+    if (enemyAttack)
+    setEnemyAttackSpritePosition((prev) => {
+      if (prev.x > playerPosition.x + CARD_WIDTH) {
+        return { ...prev, x: prev.x - 5 };
+      } else {
+        setEnemyAttack(undefined);
+        setEnemyAttackComplete(true);
+      }
+      return prev;
+    });
+    if(!attackSprite)return
     setAttackSpritePosition((prev) => {
       if (prev.x < enemyPosition.x - 10) {
         return { ...prev, x: prev.x + 5 };
       } else {
+        setAttackComplete(true);
         setAttackSprite(undefined);
       }
       return prev;
@@ -49,11 +89,7 @@ export default function BattlePage() {
     <div className="relative h-full w-full">
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <BattleBackground />
-        <Card
-          {...playerCard!}
-          position={playerPosition}
-          onClick={() => {}}
-        />
+        <Card {...playerCard!} position={playerPosition} onClick={() => {}} />
         <Card {...enemyCard!} position={enemyPosition} onClick={() => {}} />
         {attackSprite && (
           <AnimatedSprite
@@ -65,13 +101,25 @@ export default function BattlePage() {
             key={attackSprite}
           />
         )}
+        {enemyAttack && (
+          <AnimatedSprite
+            textures={Attacks[enemyAttack]}
+            isPlaying={true}
+            loop={true}
+            position={enemyAttackSpritePosition}
+            animationSpeed={0.25}
+            key={enemyAttack}
+            scale={-1}
+          />
+        )}
       </Stage>
       <div className="absolute w-full bottom-0">
         <BattleActions
           attacks={attacks}
-          onClick={(i: number) => {
+          onClick={(i: number, _attack: AttackData) => {
             setAttackSpritePosition(attackPosition);
             setAttackSprite(attacks[i]);
+            attack = _attack;
           }}
         />
       </div>

@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { CardType } from "./CardType";
+import { AttackData } from "./AttackData";
 
 export type CardContextType = {
     cardList: CardType[][];
@@ -9,4 +10,6 @@ export type CardContextType = {
     enemyCard: CardType | undefined;
     setEnemyCard: Dispatch<SetStateAction<CardType | undefined>>;
     startBattle: () => void;
+    updateEnemyHealth: (attack: AttackData) => void
+    updatePlayerHealth: (attack: AttackData) => void
 }
