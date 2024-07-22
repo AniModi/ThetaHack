@@ -6,7 +6,6 @@ import { Position } from "../types/Position";
 import { TILE_SIZE } from "../data/game_constants";
 import { Entity } from "../types/Entity";
 import usePlayer from "../hooks/usePlayer";
-import { CardContextProvider } from "./CardContext";
 
 export const GameContext = createContext<GameContextType | undefined>(
   undefined
@@ -54,7 +53,7 @@ export function GameContextProvider({ children }: { children: ReactNode }) {
 
   return (
     <GameContext.Provider value={value}>
-      <CardContextProvider>{children}</CardContextProvider>
+      {children}
     </GameContext.Provider>
   );
 }

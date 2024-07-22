@@ -35,7 +35,7 @@ export default function Card({damage, health, image, name, frame, position, onCl
   );
 
   return (
-    <Container position={position} interactive onclick={onClick}>
+    <Container position={position} interactive onclick={onClick} cursor="pointer">
       <Sprite texture={image} width={150} height={225} />
       <Sprite texture={frame} width={150} height={225} />
       <Text

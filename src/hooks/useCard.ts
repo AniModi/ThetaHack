@@ -4,7 +4,7 @@ import { CardContext } from "../contexts/CardContext";
 export function useCard() {
   const context = useContext(CardContext);
   if (context === undefined) {
-    throw new Error("useGame must be used within an CardContextProvider");
+    throw new Error("useCard must be used within an CardContextProvider");
   }
   return context;
 }

@@ -21,4 +21,15 @@ export interface SpriteSheetData {
       };
     };
   };
+  meta: {
+    app: string;
+    version: string;
+    image: string;
+    format: string;
+    size: {
+      w: number;
+      h: number;
+    };
+    scale: string;
+  };
 }
