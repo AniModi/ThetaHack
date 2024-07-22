@@ -6,7 +6,7 @@ export default function detectWallCollision(
   map: MapType,
   delta: Position
 ): Position {
-  const passageAllowed = ["floor", "purple"];
+  const passageAllowed = ["floor", "purple", "stone"];
   const { x, y } = playerPosition;
   const { x: dx, y: dy } = delta;
   const change: Position = { x: 0, y: 0 };

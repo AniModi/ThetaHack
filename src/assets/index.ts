@@ -20,6 +20,16 @@ import Theta from "./village/theta.svg";
 import WaterTile from "./village/water2.png";
 import Purple from "./village/purple.png";
 
+import Stone from "./hall/stone.png";
+import Brick from "./hall/brick.png";
+import Castle from "./hall/castle.png";
+import Fort from "./hall/castle2.png";
+import Shao from "./hall/castle3.png";
+import Edge from "./hall/edge.png";
+import AI from "./hall/ai.png";
+import Video from "./hall/vid.png";
+import ThetaNet from "./hall/network.png";
+
 const VillageAssets = {
   Grass: Texture.from(Grass),
   Water: Water,
@@ -27,6 +37,16 @@ const VillageAssets = {
   Flower: Texture.from(Flower),
   Tree: Texture.from(Tree),
   Purple: Texture.from(Purple),
+};
+
+const HallAssets = {
+  Grass: Texture.from(Grass),
+  WaterTile: Texture.from(WaterTile),
+  Flower: Texture.from(Flower),
+  Tree: Texture.from(Tree),
+  Purple: Texture.from(Purple),
+  Stone: Texture.from(Stone),
+  Brick: Texture.from(Brick),
 };
 
 const DungeonAssets = {
@@ -50,12 +70,20 @@ const Buildings = {
   Tower: Texture.from(Tower),
   Ruin: Texture.from(Ruin),
   Theta: Texture.from(Theta),
+  ThetaNet: Texture.from(ThetaNet),
+  Castle: Texture.from(Castle),
+  Fort: Texture.from(Fort),
+  Shao: Texture.from(Shao),
+  Edge: Texture.from(Edge),
+  AI: Texture.from(AI),
+  Video: Texture.from(Video),
 };
 
 export {
   DungeonAssets,
   Characters,
   VillageAssets,
+  HallAssets,
   Buildings,
   Wizard,
   Elf,
