@@ -20,13 +20,18 @@ import { playerParameters } from "../../data/playerParameters";
 
 export default function Game() {
   const navigate = useNavigate();
-  const { map, setMap, playerPosition } = useGame();
+  const { map, setMap, playerPosition, generateMap } = useGame();
   const [isTalking, setIsTalking] = useState(false);
   const app = useApp();
 
   function handleConversationEnd() {
     setIsTalking(false);
     app.ticker.start();
+    if(playerParameters.isNearCharacter === "Elf") {
+      navigate("/play/card");
+      return;
+    }
+    generateMap();
   }
 
   useEffect(() => {

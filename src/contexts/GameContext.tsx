@@ -1,10 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, ReactNode, useCallback, useState } from "react";
 import { GameContextType } from "../types/GameContextType";
 import { MapType } from "../types/MapType";
 import { Position } from "../types/Position";
@@ -46,6 +40,7 @@ export function GameContextProvider({ children }: { children: ReactNode }) {
         setPosition({ x: offsetX, y: offsetY });
         setPlayerPosition({ x: entry.x, y: entry.y });
         playerParameters.dungeonID = dungeonID;
+        navigate("/play/dungeon");
       }
 
       generate();
@@ -54,19 +49,8 @@ export function GameContextProvider({ children }: { children: ReactNode }) {
         deleteDungeon(_dungeonID);
       };
     },
-    [setPlayerPosition]
+    [setPlayerPosition, navigate]
   );
-
-  useEffect(() => {
-    let unsubscribe = () => {};
-    const timer = setTimeout(() => {
-      unsubscribe = generateMap();
-    }, 1000);
-    return () => {
-      clearTimeout(timer);
-      unsubscribe();
-    };
-  }, [generateMap]);
 
   const setMap = useCallback(
     function setMap(
@@ -114,7 +98,7 @@ export function GameContextProvider({ children }: { children: ReactNode }) {
 
   const handleBattleLose = useCallback(() => {
     alert("You lost");
-    navigate("/");
+    navigate("/play");
   }, [navigate]);
 
   const removeChest = useCallback((pos: Position) => {

@@ -11,7 +11,7 @@ import { playerParameters } from "../../data/playerParameters";
 import Attack from "../../components/Attack/Attack";
 import { useGame } from "../../hooks/useGame";
 
-const { Wizard } = Characters;
+const { Wizard, Zombie } = Characters;
 const playerPosition = { x: 100, y: window.innerHeight / 2 - TILE_SIZE / 2 };
 const enemyPosition = {
   x: window.innerWidth - 100 - TILE_SIZE,
@@ -101,7 +101,7 @@ export default function BattlePage() {
           key={JSON.stringify(playerPosition)}
         />
         <Sprite
-          texture={Wizard}
+          texture={Zombie}
           position={enemyPosition}
           height={TILE_SIZE}
           width={TILE_SIZE}

@@ -1,21 +1,36 @@
 import { useEffect, useState } from "react";
-import { Wizard } from "../../assets";
+import { Wizard, Elf } from "../../assets";
 import Button2 from "../Button2/Button2";
 import Cover from "../Cover/Cover";
 import ImageCard from "../ImageCard/ImageCard";
 import UserResponse from "./UserResponse";
 import useCount from "../../hooks/useCount";
-import { conversationSteps } from "../../data/sample";
+import {
+  wizardConversationSteps,
+  ElfConversationSteps,
+} from "../../data/sample";
+import { playerParameters } from "../../data/playerParameters";
 
 type ConversationBoxProps = {
   handleConversationEnd: () => void;
 };
 
+
+
+
+    
 export default function ConversationBox({
   handleConversationEnd,
 }: ConversationBoxProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const { count, decrement, increment, setCount } = useCount(0);
+  const conversationSteps =
+  playerParameters.isNearCharacter === "Elf"
+  ? ElfConversationSteps
+    : wizardConversationSteps;
+
+  const img = playerParameters.isNearCharacter === "Elf" ? Elf : Wizard;
+
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -50,6 +65,7 @@ export default function ConversationBox({
     count,
     currentStep,
     setCount,
+    conversationSteps
   ]);
 
   const currentStepData = conversationSteps[currentStep];
@@ -60,7 +76,7 @@ export default function ConversationBox({
         <div className="bg-peach flex justify-center h-full">
           <div className="flex items-center h-full px-4">
             <div className="w-20">
-              <ImageCard src={Wizard}></ImageCard>
+              <ImageCard src={img}></ImageCard>
             </div>
           </div>
           <div className="flex-grow border-l-2 border-black p-3">
