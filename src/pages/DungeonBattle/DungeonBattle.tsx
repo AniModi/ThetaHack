@@ -1,4 +1,4 @@
-import { AnimatedSprite, Sprite, useTick } from "@pixi/react";
+import { Sprite } from "@pixi/react";
 import BattleActions from "../../components/BattleActions/BattleActions";
 import BattleBackground from "../../components/BattleBackground/BattleBackground";
 import Stage from "../../components/Stage/Stage";
@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { Position } from "../../types/Position";
 import { attackEnemy, attackPlayer } from "../../service/battleServices";
 import { playerParameters } from "../../data/playerParameters";
+import Attack from "../../components/Attack/Attack";
+import { useGame } from "../../hooks/useGame";
 
 const { Wizard } = Characters;
 const playerPosition = { x: 100, y: window.innerHeight / 2 - TILE_SIZE / 2 };
@@ -35,9 +37,14 @@ let attack: string;
 export default function BattlePage() {
   const [attackSpritePosition, setAttackSpritePosition] =
     useState<Position>(attackPosition);
+  const [attackSprite, setAttackSprite] = useState<keyof typeof Attacks>();
 
-  const [playerHealth, setPlayerHealth] = useState<number>(100);
-  const [enemyHealth, setEnemyHealth] = useState<number>(100);
+  const [playerHealth, setPlayerHealth] = useState<number>(
+    playerParameters.player_health
+  );
+  const [enemyHealth, setEnemyHealth] = useState<number>(
+    playerParameters.enemy_health
+  );
 
   const [attackComplete, setAttackComplete] = useState<boolean>(false);
   const [enemyAttackSpritePosition, setEnemyAttackSpritePosition] =
@@ -46,6 +53,8 @@ export default function BattlePage() {
   const [enemyAttack, setEnemyAttack] = useState<keyof typeof Attacks>();
   const [enemyAttackComplete, setEnemyAttackComplete] =
     useState<boolean>(false);
+
+  const { handleBattleEnd, handleBattleLose } = useGame();
 
   useEffect(() => {
     if (attackComplete) {
@@ -59,6 +68,8 @@ export default function BattlePage() {
           if (damage.enemyAttack !== "") {
             setEnemyAttack(damage.enemyAttack);
             setEnemyAttackSpritePosition(enemyAttackPosition);
+          } else {
+            handleBattleEnd();
           }
         }
       );
@@ -67,37 +78,15 @@ export default function BattlePage() {
       setEnemyAttackComplete(false);
       setAttackSpritePosition(attackPosition);
       attackPlayer(playerParameters.dungeonID, attack).then(
-        (damage: { damage: number }) => {
+        (damage: { damage: number; message: string }) => {
           setPlayerHealth((prev) => prev - damage.damage);
+          if (damage.message === "You died") {
+            handleBattleLose();
+          }
         }
       );
     }
-  }, [attackComplete, enemyAttackComplete]);
-
-  useTick(() => {
-    if (enemyAttack)
-      setEnemyAttackSpritePosition((prev) => {
-        if (prev.x > playerPosition.x + TILE_SIZE) {
-          return { ...prev, x: prev.x - 5 };
-        } else {
-          setEnemyAttack(undefined);
-          setEnemyAttackComplete(true);
-        }
-        return prev;
-      });
-    if (attackSprite)
-      setAttackSpritePosition((prev) => {
-        if (prev.x < enemyPosition.x - 10) {
-          return { ...prev, x: prev.x + 5 };
-        } else {
-          setAttackComplete(true);
-          setAttackSprite(undefined);
-        }
-        return prev;
-      });
-  });
-
-  const [attackSprite, setAttackSprite] = useState<keyof typeof Attacks>();
+  }, [attackComplete, enemyAttackComplete, handleBattleEnd, handleBattleLose]);
 
   return (
     <div className="relative h-full w-full">
@@ -120,27 +109,20 @@ export default function BattlePage() {
           key={JSON.stringify(enemyPosition)}
           scale={{ x: -3, y: 3 }}
         />
-        {attackSprite && (
-          <AnimatedSprite
-            textures={Attacks[attackSprite]}
-            isPlaying={true}
-            loop={true}
-            position={attackSpritePosition}
-            animationSpeed={0.25}
-            key={attackSprite}
-          />
-        )}
-        {enemyAttack && (
-          <AnimatedSprite
-            textures={Attacks[enemyAttack]}
-            isPlaying={true}
-            loop={true}
-            position={enemyAttackSpritePosition}
-            animationSpeed={0.25}
-            key={enemyAttack}
-            scale={-1}
-          />
-        )}
+        <Attack
+          attackSprite={attackSprite}
+          enemyAttack={enemyAttack}
+          attackSpritePosition={attackSpritePosition}
+          enemyAttackSpritePosition={enemyAttackSpritePosition}
+          enemyPosition={enemyPosition}
+          playerPosition={playerPosition}
+          setAttackComplete={setAttackComplete}
+          setEnemyAttackComplete={setEnemyAttackComplete}
+          setAttackSprite={setAttackSprite}
+          setEnemyAttack={setEnemyAttack}
+          setAttackSpritePosition={setAttackSpritePosition}
+          setEnemyAttackSpritePosition={setEnemyAttackSpritePosition}
+        />
       </Stage>
       <div className="absolute w-full bottom-0">
         <div className="flex justify-between p-3">

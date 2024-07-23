@@ -19,7 +19,7 @@ export async function startBattle(dungeonID: string, enemy_position: Position) {
       dungeonID,
       enemy_position,
     });
-    return response.data;
+    return response.data as { player_health: number; enemy_health: number };
   } catch (error) {
     console.log(error);
   }

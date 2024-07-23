@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { MOVEMENT_SPEED, TILE_SIZE } from "../data/game_constants";
 import { Position } from "../types/Position";
 import { useTick } from "@pixi/react";
@@ -8,25 +8,14 @@ import { MapType } from "../types/MapType";
 import updatePlayerParams from "../utils/updatePlayerParams";
 
 export default function usePlayer(
-  map: MapType | undefined,
+  map: MapType,
   setPosition: Dispatch<SetStateAction<Position>>
 ) {
   const [playerPosition, setPlayerPosition] = useState<Position>({
-    x: map?.entry.x || 0,
-    y: map?.entry.y || 0,
+    x: map.entry.x,
+    y: map.entry.y,
   });
 
-  useEffect(() => {
-    if (!map) {
-      return;
-    }
-    setPlayerPosition(() => {
-      return {
-        x: map.entry.x,
-        y: map.entry.y,
-      };
-    });
-  }, [map]);
 
   useTick((delta) => {
     if (!map) {
@@ -50,8 +39,11 @@ export default function usePlayer(
 
       dx = change.x;
       dy = change.y;
-      
-      updatePlayerParams(playerPosition, [... map.chestPositions.map((pos) => ({type: "chest", ...pos})), ...map.entities]);
+
+      updatePlayerParams(playerPosition, [
+        ...map.chestPositions.map((pos) => ({ type: "chest", ...pos })),
+        ...map.entities,
+      ]);
       setPlayerPosition((prev) => {
         return {
           x: prev.x + dx,

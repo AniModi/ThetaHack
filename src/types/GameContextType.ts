@@ -4,7 +4,7 @@ import { Position } from "./Position";
 import { Entity } from "./Entity";
 
 export type GameContextType = {
-  map: MapType | undefined;
+  map: MapType;
   generateMap: () => void;
   initialPosition: Position;
   setPosition: Dispatch<React.SetStateAction<Position>>;
@@ -15,4 +15,6 @@ export type GameContextType = {
     exit: Position
   ) => void;
   playerPosition: Position;
+  handleBattleEnd: () => void;
+  handleBattleLose: () => void;
 };

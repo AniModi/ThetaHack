@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import dungeonRouter from "./routes/dungeonRoutes";
 import battleRoutes from "./routes/battleRoutes";
+import chestRoutes from "./routes/chestRoutes";
 dotenv.config();
 
 const app = express();
@@ -26,3 +27,4 @@ connectToMongo();
 
 app.use("/dungeon", dungeonRouter)
 app.use("/battle", battleRoutes)
+app.use("/chest", chestRoutes)

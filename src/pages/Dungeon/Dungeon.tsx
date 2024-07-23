@@ -9,9 +9,10 @@ import PlayerAction from "../../components/PlayerAction/PlayerAction";
 import { playerParameters } from "../../data/playerParameters";
 import { useNavigate } from "react-router-dom";
 import { startBattle } from "../../service/battleServices";
+import { openChest } from "../../service/chestService";
 
 export default function Dungeon() {
-  const { map, generateMap } = useGame();
+  const { map } = useGame();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,11 +22,16 @@ export default function Dungeon() {
           startBattle(
             playerParameters.dungeonID,
             playerParameters.characterPosition
-          ).then(() => {
+          ).then((res) => {
             navigate("/play/dungeon/battle");
+            playerParameters.player_health = res?.player_health || 100;
+            playerParameters.enemy_health = res?.enemy_health || 100;
           });
         } else if (playerParameters.isNearCharacter === "chest") {
-          //
+          openChest(
+            playerParameters.dungeonID,
+            playerParameters.characterPosition
+          ).then((res) => console.log(res));
         }
       }
     }
@@ -36,10 +42,6 @@ export default function Dungeon() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [navigate]);
-
-  useEffect(() => {
-    generateMap();
-  }, [generateMap]);
 
   if (!map) {
     return null;
