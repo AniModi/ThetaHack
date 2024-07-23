@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import DungeonModel from "../models/Dungeon";
 import { isPositionInRoom } from "../helpers/isCoordinateInRoom";
 import { rewards } from "../data/rewards";
+import RewardModel from "../models/RewardModel";
 
 export async function openChest(req: Request, res: Response) {
   try {
-    const { dungeonID, chest_position } = req.body;
+    const { dungeonID, chest_position, address } = req.body;
 
     const dungeon = await DungeonModel.findOne({ unique_id: dungeonID });
 
@@ -54,6 +55,14 @@ export async function openChest(req: Request, res: Response) {
     dungeon.chest_locations = dungeon.chest_locations.filter((pos) => {
       return pos.x !== chest_position.x || pos.y !== chest_position.y;
     });
+
+    const reward = new RewardModel({
+      dungeonID,
+      address,
+      rewards: chest_rewards,
+    });
+
+    await reward.save();
 
     await dungeon.save();
 

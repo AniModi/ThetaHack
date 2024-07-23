@@ -11,11 +11,13 @@ import { useNavigate } from "react-router-dom";
 import { startBattle } from "../../service/battleServices";
 import { openChest } from "../../service/chestService";
 import ChestContent from "../../components/ChestContent/ChestContent";
+import { useAddress } from "@thirdweb-dev/react";
 
 export default function Dungeon() {
   const { map, removeChest } = useGame();
   const navigate = useNavigate();
   const [chestRewards, setChestRewards] = useState<string[]>();
+  const address = useAddress();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -32,7 +34,8 @@ export default function Dungeon() {
         } else if (playerParameters.isNearCharacter === "chest") {
           openChest(
             playerParameters.dungeonID,
-            playerParameters.characterPosition
+            playerParameters.characterPosition,
+            address || "111"
           ).then((res) => {
             playerParameters.isNearCharacter = "";
             if (res.chest_rewards) {
@@ -51,7 +54,7 @@ export default function Dungeon() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [navigate, removeChest]);
+  }, [navigate, removeChest, address]);
 
   if (!map) {
     return null;
