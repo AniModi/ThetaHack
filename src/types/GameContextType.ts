@@ -17,4 +17,5 @@ export type GameContextType = {
   playerPosition: Position;
   handleBattleEnd: () => void;
   handleBattleLose: () => void;
+  removeChest: (pos: Position) => void;
 };

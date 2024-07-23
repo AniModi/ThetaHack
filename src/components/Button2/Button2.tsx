@@ -1,14 +1,15 @@
 type Button2 = {
   text: string;
   onClick: () => void;
+  className? : string;
 };
 
-export default function Button2({ text, onClick }: Button2) {
+export default function Button2({ text, onClick, className }: Button2) {
   return (
     <div className="w-fit h-fit relative">
       <button
         onClick={onClick}
-        className="font-semibold text-xl px-2 py-1 relative z-10 border border-black bg-peach"
+        className={`font-semibold text-xl px-2 py-1 relative z-10 border border-black bg-peach ${className}`}
       >
         {text}
       </button>

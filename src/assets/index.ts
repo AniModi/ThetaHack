@@ -194,8 +194,6 @@ import PoisonSheet from "./battle/attacks/poison/spritesheet.png";
 import IceData from "./battle/attacks/ice/spritesheet.json";
 import IceSheet from "./battle/attacks/ice/spritesheet.png";
 
-
-
 import { getTextureFromSpriteSheet } from "../utils/loadTexturesFromSpritesheet";
 import { SpriteSheetData } from "../types/SpriteSheetData";
 
@@ -219,3 +217,61 @@ const Attacks = {
 };
 
 export { Attacks };
+
+import PoisonPotion from "./rewards/poison_potion.png";
+import SilverRing from "./rewards/silver_ring.png";
+import GoldRing from "./rewards/gold_ring.png";
+import MagicRing from "./rewards/magic_ring.png";
+import DemonRing from "./rewards/demon_ring.png";
+import PlatinumRing from "./rewards/platinum_ring.png";
+import BrokenRing from "./rewards/broken_ring.png";
+import HealthPotion from "./rewards/health_potion.png";
+import PowerPotion from "./rewards/power_potion.png";
+
+export const REWARDS = [
+  {
+    name: "Poison Potion",
+    description: "A potion with toxic effects.",
+    path: PoisonPotion,
+  },
+  {
+    name: "Silver Ring",
+    description: "A ring made of silver.",
+    path: SilverRing,
+  },
+  {
+    name: "Gold Ring",
+    description: "A ring made of gold.",
+    path: GoldRing,
+  },
+  {
+    name: "Magic Ring",
+    description: "A ring imbued with mystical powers.",
+    path: MagicRing,
+  },
+  {
+    name: "Demon Ring",
+    description: "A sinister ring associated with dark forces.",
+    path: DemonRing,
+  },
+  {
+    name: "Platinum Ring",
+    description: "A rare and precious platinum ring.",
+    path: PlatinumRing,
+  },
+  {
+    name: "Broken Ring",
+    description: "A damaged ring with a storied history.",
+    path: BrokenRing,
+  },
+  {
+    name: "Health Potion",
+    description: "A potion that restores health.",
+    path: HealthPotion,
+  },
+  {
+    name: "Power Potion",
+    description: "A potion that boosts magical abilities.",
+    path: PowerPotion,
+  },
+];

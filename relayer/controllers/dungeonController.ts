@@ -19,14 +19,12 @@ export async function generateDungeon(req: Request, res: Response) {
       y: chest.y,
     }));
     const chest_states = chestPositions.map(() => "locked");
-    const reward_ids: string[] = [];
 
     const newDungeon = new DungeonModel({
       unique_id: dungeonID,
       enemy_locations,
       chest_locations,
       chest_states,
-      reward_ids,
       rooms,
     });
 
@@ -43,7 +41,7 @@ export async function generateDungeon(req: Request, res: Response) {
 
 export async function deleteDungeon(req: Request, res: Response) {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
 
     const dungeon = await DungeonModel.findOne({ unique_id: id });
 

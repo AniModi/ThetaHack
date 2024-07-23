@@ -7,7 +7,6 @@ interface Dungeon extends Document {
   enemy_locations: Position[];
   chest_locations: Position[];
   chest_states: ("locked" | "unlocked" | "opened")[];
-  reward_ids: string[];
   rooms: Room[];
 }
 
@@ -37,7 +36,6 @@ const dungeonSchema = new Schema<Dungeon>({
     type: [{ type: String, enum: ["locked", "unlocked", "opened"] }],
     default: [],
   },
-  reward_ids: { type: [String], default: [] },
   rooms: { type: [roomSchema], default: [] },
 });
 

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Map from "../../components/Map/Map";
 import Stage from "../../components/Stage/Stage";
 import { useGame } from "../../hooks/useGame";
@@ -10,10 +10,12 @@ import { playerParameters } from "../../data/playerParameters";
 import { useNavigate } from "react-router-dom";
 import { startBattle } from "../../service/battleServices";
 import { openChest } from "../../service/chestService";
+import ChestContent from "../../components/ChestContent/ChestContent";
 
 export default function Dungeon() {
-  const { map } = useGame();
+  const { map, removeChest } = useGame();
   const navigate = useNavigate();
+  const [chestRewards, setChestRewards] = useState<string[]>();
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -31,7 +33,15 @@ export default function Dungeon() {
           openChest(
             playerParameters.dungeonID,
             playerParameters.characterPosition
-          ).then((res) => console.log(res));
+          ).then((res) => {
+            playerParameters.isNearCharacter = "";
+            if (res.chest_rewards) {
+              setChestRewards(res.chest_rewards);
+              removeChest(playerParameters.characterPosition)
+            } else {
+              alert(res.message);
+            }
+          });
         }
       }
     }
@@ -41,7 +51,7 @@ export default function Dungeon() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [navigate]);
+  }, [navigate, removeChest]);
 
   if (!map) {
     return null;
@@ -59,6 +69,12 @@ export default function Dungeon() {
           <PlayerAction></PlayerAction>
         </div>
       </div>
+      {chestRewards && (
+        <ChestContent
+          handleClose={setChestRewards}
+          content={chestRewards!}
+        ></ChestContent>
+      )}
     </div>
   );
 }

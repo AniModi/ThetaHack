@@ -112,11 +112,30 @@ export function GameContextProvider({ children }: { children: ReactNode }) {
     navigate(-1);
   }, [navigate]);
 
-
   const handleBattleLose = useCallback(() => {
     alert("You lost");
     navigate("/");
-  },[navigate])
+  }, [navigate]);
+
+  const removeChest = useCallback((pos: Position) => {
+    setMapState((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        chestPositions: prev.chestPositions.filter(
+          (chest) => chest.x !== pos.x || chest.y !== pos.y
+        ),
+        tiles: prev.tiles.map((row, y) => {
+          return row.map((col, x) => {
+            if (x === pos.x && y === pos.y) {
+              return "floor";
+            }
+            return col;
+          });
+        }),
+      };
+    });
+  }, []);
 
   const value = {
     map,
@@ -126,7 +145,8 @@ export function GameContextProvider({ children }: { children: ReactNode }) {
     setMap,
     playerPosition,
     handleBattleEnd,
-    handleBattleLose
+    handleBattleLose,
+    removeChest,
   };
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import DungeonModel from "../models/Dungeon";
 import { isPositionInRoom } from "../helpers/isCoordinateInRoom";
+import { rewards } from "../data/rewards";
 
 export async function openChest(req: Request, res: Response) {
   try {
@@ -33,10 +34,30 @@ export async function openChest(req: Request, res: Response) {
     });
 
     if (enemies.length > 0) {
-      return res.status(404).json({ message: "Defeat all enemies before opening chest", enemies });
+      return res
+        .status(200)
+        .json({ message: "Defeat all enemies before opening chest", enemies });
     }
 
-    return res.status(200).json({ message: "Chest opened" });
+    let x = 1;
+
+    const chest_rewards = rewards
+      .map((reward) => {
+        if (Math.random() < x) {
+          x /= 3;
+          return reward;
+        }
+        return null;
+      })
+      .filter((reward) => reward !== null);
+
+    dungeon.chest_locations = dungeon.chest_locations.filter((pos) => {
+      return pos.x !== chest_position.x || pos.y !== chest_position.y;
+    });
+
+    await dungeon.save();
+
+    return res.status(200).json({ message: "Chest opened", chest_rewards });
   } catch (err: unknown) {
     console.log(err);
     return res.status(500).json({ message: "Something went wrong" });
