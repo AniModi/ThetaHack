@@ -6,6 +6,7 @@ import UserResponse from "./UserResponse";
 import Button2 from "../Button2/Button2";
 import useCount from '../../hooks/useCount';
 import { nodeDialogue } from '../../data/nodeDialogue';
+import { playerParameters } from "../../data/playerParameters";
 
 type ConversationBoxProps = {
     handleConversationEnd: () => void;
@@ -21,7 +22,7 @@ export default function ThetaDialogue({
         ]
     );
     const [isNodeDialogue, setNodeDialogue] = useState(false);
-    const [option, setOption] = useState("linux");
+    const [option, setOption] = useState<"mac" | "linux">("linux");
 
     useEffect(() => {
         function handleKeyDown(e: KeyboardEvent) {
@@ -30,7 +31,7 @@ export default function ThetaDialogue({
             }
         }
         window.addEventListener("keydown", handleKeyDown);
-
+        
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
         };
