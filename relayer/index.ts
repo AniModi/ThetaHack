@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import dungeonRouter from "./routes/dungeonRoutes";
 import battleRoutes from "./routes/battleRoutes";
 import chestRoutes from "./routes/chestRoutes";
+import { ethers } from "ethers";
 dotenv.config();
 
 const app = express();
@@ -28,3 +29,12 @@ connectToMongo();
 app.use("/dungeon", dungeonRouter)
 app.use("/battle", battleRoutes)
 app.use("/chest", chestRoutes)
+app.post("/relay", (req, res) => {
+  const { sender, signature } = req.body;
+  console.log(sender, signature);
+  const signer = ethers.verifyMessage("Quest done", signature);
+  if (signer !== sender) {
+    return res.status(401).send("Unauthorized");
+  }
+  res.send("Relayed");
+});
