@@ -64,7 +64,7 @@ export default function BattlePage() {
           damage: number;
           enemyAttack: keyof typeof Attacks | "";
         }) => {
-          setEnemyHealth((prev) => prev - damage.damage);
+          setEnemyHealth((prev) => Math.max(0, prev - damage.damage));
           if (damage.enemyAttack !== "") {
             setEnemyAttack(damage.enemyAttack);
             setEnemyAttackSpritePosition(enemyAttackPosition);
@@ -79,7 +79,7 @@ export default function BattlePage() {
       setAttackSpritePosition(attackPosition);
       attackPlayer(playerParameters.dungeonID, attack).then(
         (damage: { damage: number; message: string }) => {
-          setPlayerHealth((prev) => prev - damage.damage);
+          setPlayerHealth((prev) => Math.max(0, prev - damage.damage));
           if (damage.message === "You died") {
             handleBattleLose();
           }

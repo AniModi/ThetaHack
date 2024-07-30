@@ -6,6 +6,7 @@ import dungeonRouter from "./routes/dungeonRoutes";
 import battleRoutes from "./routes/battleRoutes";
 import chestRoutes from "./routes/chestRoutes";
 import { ethers } from "ethers";
+import { CONTRACT_ADDRESS, CONTRACT_ABI } from "./contracts.ts";
 dotenv.config();
 
 const app = express();
@@ -29,12 +30,17 @@ connectToMongo();
 app.use("/dungeon", dungeonRouter)
 app.use("/battle", battleRoutes)
 app.use("/chest", chestRoutes)
-app.post("/relay", (req, res) => {
+app.post("/relay", async (req, res) => {
   const { sender, signature } = req.body;
   console.log(sender, signature);
   const signer = ethers.verifyMessage("Quest done", signature);
   if (signer !== sender) {
     return res.status(401).send("Unauthorized");
   }
+  const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
+  const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, [, provider]);
+  const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, wallet);
+  await contract.updateReward(sender, 'Poison potion');
+
   res.send("Relayed");
 });
