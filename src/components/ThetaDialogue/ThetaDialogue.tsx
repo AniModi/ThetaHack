@@ -10,17 +10,14 @@ import { playerParameters } from "../../data/playerParameters";
 
 type ConversationBoxProps = {
     handleConversationEnd: () => void;
+    dialogue: []
 };
 
 export default function ThetaDialogue({
     handleConversationEnd,
+    dialogue
 }: ConversationBoxProps) {
     const { count, increment, setCount } = useCount(0);
-    const [dialogue, setDialogue] = useState(
-        [
-            /* AI generated dialogue */
-        ]
-    );
     const [isNodeDialogue, setNodeDialogue] = useState(false);
     const [option, setOption] = useState<"mac" | "linux">("linux");
 
@@ -31,7 +28,7 @@ export default function ThetaDialogue({
             }
         }
         window.addEventListener("keydown", handleKeyDown);
-        
+
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
         };
@@ -73,7 +70,7 @@ export default function ThetaDialogue({
                                     <code>{nodeDialogue[option][count].code}</code>
                                 </pre>
                             </>)
-                            : dialogue[count]["gandalf"]}</p>
+                            : dialogue[count]["speaker"]}</p>
                         {
                             isNodeDialogue && count === 0 &&
                             <>

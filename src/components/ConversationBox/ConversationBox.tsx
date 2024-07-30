@@ -5,32 +5,22 @@ import Cover from "../Cover/Cover";
 import ImageCard from "../ImageCard/ImageCard";
 import UserResponse from "./UserResponse";
 import useCount from "../../hooks/useCount";
-import {
-  wizardConversationSteps,
-  ElfConversationSteps,
-} from "../../data/sample";
 import { playerParameters } from "../../data/playerParameters";
 
 type ConversationBoxProps = {
   handleConversationEnd: () => void;
+  dialogue: []
 };
 
-
-
-
-    
 export default function ConversationBox({
   handleConversationEnd,
+  dialogue,
 }: ConversationBoxProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const { count, decrement, increment, setCount } = useCount(0);
-  const conversationSteps =
-  playerParameters.isNearCharacter === "Elf"
-  ? ElfConversationSteps
-    : wizardConversationSteps;
+  const conversationSteps = dialogue
 
   const img = playerParameters.isNearCharacter === "Elf" ? Elf : Wizard;
-
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {

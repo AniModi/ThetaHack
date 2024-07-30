@@ -17,22 +17,40 @@ import updatePlayerParams from "../../utils/updatePlayerParams";
 import { useApp } from "@pixi/react";
 import ConversationBox from "../../components/ConversationBox/ConversationBox";
 import { playerParameters } from "../../data/playerParameters";
+import { model } from "../../utils/model";
+import { storyPrompt } from "../../prompts/storyPrompt";
 
 export default function Game() {
   const navigate = useNavigate();
   const { map, setMap, playerPosition, generateMap } = useGame();
   const [isTalking, setIsTalking] = useState(false);
+  const [dialogue, setDialogue] = useState(
+    [
+      /* AI generated dialogue */
+    ]
+  );
   const app = useApp();
 
   function handleConversationEnd() {
     setIsTalking(false);
     app.ticker.start();
-    if(playerParameters.isNearCharacter === "Elf") {
+    if (playerParameters.isNearCharacter === "Elf") {
       navigate("/play/card");
       return;
     }
     generateMap();
   }
+
+  useEffect(() => {
+    async function generateDialogue() {
+      const result = await model.generateContent(storyPrompt)
+      const response = await result.response;
+      const text = response.text();
+      console.log('prompt', text)
+      setDialogue(JSON.parse(text.substring(7, text.length - 3)));
+    }
+    generateDialogue();
+  }, []);
 
   useEffect(() => {
     setMap(
@@ -84,6 +102,7 @@ export default function Game() {
           {isTalking ? (
             <ConversationBox
               handleConversationEnd={handleConversationEnd}
+              dialogue={dialogue}
             ></ConversationBox>
           ) : (
             <PlayerAction></PlayerAction>

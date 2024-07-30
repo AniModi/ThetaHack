@@ -15,16 +15,34 @@ import { playerParameters } from "../../data/playerParameters";
 import PlayerCard from "../../components/PlayerCard/PlayerCard";
 import HallAction from "../../components/HallAction/HallAction";
 import ThetaDialogue from "../../components/ThetaDialogue/ThetaDialogue";
+import { model } from '../../utils/model';
+import { thetaPrompt } from '../../prompts/thetaPrompt';
 
 export default function ThetaHall() {
     const { map, setMap, playerPosition } = useGame();
     const [isTalking, setIsTalking] = useState(false);
+    const [dialogue, setDialogue] = useState(
+        [
+            /* AI generated dialogue */
+        ]
+    );
     const app = useApp();
 
     function handleConversationEnd() {
         setIsTalking(false);
         app.ticker.start();
     }
+
+    useEffect(() => {
+        async function generateDialogue() {
+            const result = await model.generateContent(thetaPrompt)
+            const response = await result.response;
+            const text = response.text();
+            setDialogue(JSON.parse(text.substring(7, text.length - 3)));
+            console.log('prompt', JSON.parse(text.substring(7, text.length - 3)));
+        }
+        generateDialogue();
+    }, []);
 
     useEffect(() => {
         setMap(
@@ -69,8 +87,8 @@ export default function ThetaHall() {
             <div className="absolute bottom-0 w-full z-10 p-3 flex gap-10">
                 <PlayerCard></PlayerCard>
                 <div className="flex items-end justify-end ml-auto flex-grow">
-                    {isTalking ? (
-                        <ThetaDialogue handleConversationEnd={handleConversationEnd} />
+                    {(isTalking && dialogue) ? (
+                        <ThetaDialogue handleConversationEnd={handleConversationEnd} dialogue={dialogue}/>
                     ) : (
                         <HallAction />
                     )}
